@@ -1,0 +1,34 @@
+{
+  "name": "gatsby-source-jetveo",
+  "version": "1.0.0",
+  "description": "Gatsby source plugin for building websites using Jetveo as data source",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build script setup\""
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-source-plugin"
+  ],
+  "author": "Jetveo.io <info@jetveo.io>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "gatsby-source-filesystem": "^4.10.0",
+    "humps": "^2.0.1"
+  },
+  "peerDependencies": {
+    "gatsby": "^3.0.0 || ^4.0.0",
+    "gatsby-plugin-image": "^1.0.0 || ^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "gatsby-plugin-image": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
+}
