@@ -35,7 +35,7 @@ exports.sourceNodes = async (
   for (const index in apiEndpoints) {
     const endpoint = apiEndpoints[index];
 
-    reporter.info("Downloading data from endpoint " + endpoint);
+    reporter.info("Downloading data from Jetveo endpoint " + endpoint);
 
     await processEndpoint(
       endpoint,
@@ -62,19 +62,19 @@ async function processEndpoint(
 ) {
   const data = await loadData(`${apiBaseUrl}/${endpoint}`, apiKey, reporter);
   if (!data) {
-    reporter.warn(`Endpoint ${endpoint} response is empty`);
+    reporter.warn(`Jetveo endpoint ${endpoint} response is empty`);
     return;
   }
 
   if (!data.success) {
     reporter.error(
-      `Endpoint ${endpoint} response error. ErrorMessage: ${data.message}`
+      `Jetveo endpoint ${endpoint} response error. ErrorMessage: ${data.message}`
     );
     return;
   }
 
   if (!data.items || !data.items.length) {
-    reporter.warn(`Endpoint ${endpoint} response with empty data`);
+    reporter.warn(`Jetveo endpoint ${endpoint} response with empty data`);
     return;
   }
 

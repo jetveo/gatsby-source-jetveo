@@ -44,7 +44,7 @@ plugins: [
 
 ## How to query data
 
-You can see imported data from api endpoints on gatsby graphql dev page http://localhost:8000/\_\_\_graphql as graphql nodes with prefix `jetveo`.
+You can see imported data from api endpoints on gatsby graphql dev page http://localhost:8000/___graphql as graphql nodes with prefix `jetveo`.
 Use this nodes in your graphql query as you used to.
 
 ## Integration with Gatsby Image
