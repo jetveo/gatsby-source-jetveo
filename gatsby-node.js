@@ -204,7 +204,13 @@ function reportError(reporter, message) {
 }
 
 exports.onCreateNode = async (
-  { node, actions: { createNode, createNodeField }, createNodeId, getCache },
+  {
+    node,
+    actions: { createNode, createNodeField },
+    createNodeId,
+    getCache,
+    reporter,
+  },
   { apiKey }
 ) => {
   const nodeType = node.internal.type;
@@ -213,28 +219,54 @@ exports.onCreateNode = async (
   }
 
   if (nodeType === JETVEO_ASSET_TYPE) {
-    const url = node.url;
-    const fileExtension = getFileExtension(url);
+    const fileNode = await createFileNode(
+      node.url,
+      node.id,
+      apiKey,
+      createNode,
+      createNodeId,
+      getCache
+    );
 
+    createNodeField({
+      node: node,
+      name: `localFile`,
+      value: fileNode.id,
+      ext: fileNode.extension,
+    });
+  }
+};
+
+async function createFileNode(
+  url,
+  parentNodeId,
+  apiKey,
+  createNode,
+  createNodeId,
+  getCache
+) {
+  function createResult(fileNodeId, fileExtension) {
+    return {
+      id: fileNodeId,
+      extension: fileExtension,
+    };
+  }
+
+  if (url) {
     const fileNode = await createRemoteFileNode({
       url: url,
-      parentNodeId: node.id,
+      parentNodeId: parentNodeId,
       createNode,
       createNodeId,
       getCache,
       httpHeaders: createAuthHeader(apiKey),
     });
 
-    if (fileNode) {
-      createNodeField({
-        node: node,
-        name: `localFile`,
-        value: fileNode.id,
-        ext: fileExtension,
-      });
-    }
+    return createResult(fileNode.id, getFileExtension(url));
   }
-};
+
+  return createResult(null, null);
+}
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
@@ -247,7 +279,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 };
 
 function isAssetObj(val) {
-  return val && typeof val === "object" && val.url && val.isAsset;
+  return val && typeof val === "object" && val.type && val.isAsset;
 }
 
 function createAuthHeader(apiKey) {
