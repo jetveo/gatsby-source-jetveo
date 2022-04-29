@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-source-jetveo",
+  "name": "@jetveo/gatsby-source-jetveo",
   "version": "1.0.1",
   "description": "Gatsby source plugin for building websites using Jetveo as data source",
   "main": "index.js",
@@ -30,5 +30,12 @@
   },
   "engines": {
     "node": ">=14.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jetveo/gatsby-source-jetveo.git"
   }
 }
